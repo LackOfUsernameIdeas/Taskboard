@@ -5,6 +5,8 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
+import java.time.LocalDate;
+
 public class TaskRequest {
 
     @NotBlank(message = "Title is required")
@@ -16,6 +18,8 @@ public class TaskRequest {
 
     @NotNull(message = "Status is required")
     private TaskStatus status;
+
+    private LocalDate dueDate;
 
     public String getTitle() {
         return title;
@@ -39,5 +43,13 @@ public class TaskRequest {
 
     public void setStatus(TaskStatus status) {
         this.status = status;
+    }
+
+    public LocalDate getDueDate() {
+        return dueDate;
+    }
+
+    public void setDueDate(LocalDate dueDate) {
+        this.dueDate = dueDate;
     }
 }

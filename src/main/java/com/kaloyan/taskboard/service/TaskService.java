@@ -31,6 +31,7 @@ public class TaskService {
         task.setTitle(request.getTitle());
         task.setDescription(request.getDescription());
         task.setStatus(request.getStatus());
+        task.setDueDate(request.getDueDate());
         return taskRepository.save(task);
     }
 
@@ -39,6 +40,7 @@ public class TaskService {
         task.setTitle(request.getTitle());
         task.setDescription(request.getDescription());
         task.setStatus(request.getStatus());
+        task.setDueDate(request.getDueDate());
         return taskRepository.save(task);
     }
 

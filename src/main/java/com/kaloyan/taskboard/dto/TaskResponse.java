@@ -3,18 +3,22 @@ package com.kaloyan.taskboard.dto;
 import com.kaloyan.taskboard.model.Task;
 import com.kaloyan.taskboard.model.TaskStatus;
 
+import java.time.LocalDate;
+
 public class TaskResponse {
 
     private final Long id;
     private final String title;
     private final String description;
     private final TaskStatus status;
+    private final LocalDate dueDate;
 
     public TaskResponse(Task task) {
         this.id = task.getId();
         this.title = task.getTitle();
         this.description = task.getDescription();
         this.status = task.getStatus();
+        this.dueDate = task.getDueDate();
     }
 
     public Long getId() {
@@ -31,5 +35,9 @@ public class TaskResponse {
 
     public TaskStatus getStatus() {
         return status;
+    }
+
+    public LocalDate getDueDate() {
+        return dueDate;
     }
 }

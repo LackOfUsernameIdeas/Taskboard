@@ -2,6 +2,7 @@ package com.kaloyan.taskboard.api.controller;
 
 import com.kaloyan.taskboard.api.dto.TaskRequest;
 import com.kaloyan.taskboard.api.dto.TaskResponse;
+import com.kaloyan.taskboard.api.dto.TaskMapper;
 import com.kaloyan.taskboard.core.model.Task;
 import com.kaloyan.taskboard.core.service.TaskService;
 import jakarta.validation.Valid;
@@ -33,23 +34,13 @@ public class TaskController {
 
     @PostMapping
     public ResponseEntity<TaskResponse> createTask(@Valid @RequestBody TaskRequest request) {
-        Task task = new Task();
-        task.setTitle(request.getTitle());
-        task.setDescription(request.getDescription());
-        task.setStatus(request.getStatus());
-        task.setDueDate(request.getDueDate());
-        Task created = taskService.createTask(task);
+        Task created = taskService.createTask(TaskMapper.toEntity(request));
         return ResponseEntity.status(HttpStatus.CREATED).body(new TaskResponse(created));
     }
 
     @PutMapping("/{id}")
     public TaskResponse updateTask(@PathVariable Long id, @Valid @RequestBody TaskRequest request) {
-        Task task = new Task();
-        task.setTitle(request.getTitle());
-        task.setDescription(request.getDescription());
-        task.setStatus(request.getStatus());
-        task.setDueDate(request.getDueDate());
-        return new TaskResponse(taskService.updateTask(id, task));
+        return new TaskResponse(taskService.updateTask(id, TaskMapper.toEntity(request)));
     }
 
     @DeleteMapping("/{id}")

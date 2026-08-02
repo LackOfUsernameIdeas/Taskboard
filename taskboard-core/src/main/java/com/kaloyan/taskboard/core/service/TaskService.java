@@ -4,6 +4,8 @@ import com.kaloyan.taskboard.core.model.Task;
 import com.kaloyan.taskboard.core.repository.TaskRepository;
 import org.springframework.stereotype.Service;
 
+import com.kaloyan.taskboard.core.exception.TaskNotFoundException;
+
 import java.util.List;
 
 @Service
@@ -21,7 +23,7 @@ public class TaskService {
 
     public Task getTaskById(Long id) {
         return taskRepository.findById(id)
-                .orElseThrow(() -> new com.kaloyan.taskboard.core.exception.TaskNotFoundException(id));
+                .orElseThrow(() -> new TaskNotFoundException(id));
     }
 
     public Task createTask(Task task) {

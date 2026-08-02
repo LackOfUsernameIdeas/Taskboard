@@ -24,12 +24,7 @@ public class OverdueTaskChecker {
 
     @Scheduled(fixedRate = 60000)
     public void checkOverdueTasks() {
-        LocalDate today = LocalDate.now();
-
-        List<Task> overdueTasks = taskRepository.findAll().stream()
-                .filter(task -> task.getStatus() == TaskStatus.TODO)
-                .filter(task -> task.getDueDate() != null && task.getDueDate().isBefore(today))
-                .toList();
+        List<Task> overdueTasks = taskRepository.findByStatusAndDueDateBefore(TaskStatus.TODO, LocalDate.now());
 
         if (overdueTasks.isEmpty()) {
             log.info("No overdue tasks found.");

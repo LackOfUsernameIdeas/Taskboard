@@ -1,0 +1,17 @@
+package com.kaloyan.taskboard.worker;
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.persistence.autoconfigure.EntityScan;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
+import org.springframework.scheduling.annotation.EnableScheduling;
+
+@SpringBootApplication(scanBasePackages = "com.kaloyan.taskboard")
+@EntityScan(basePackages = "com.kaloyan.taskboard.core.model")
+@EnableJpaRepositories(basePackages = "com.kaloyan.taskboard.core.repository")
+@EnableScheduling
+public class TaskboardWorkerApplication {
+    public static void main(String[] args) {
+        SpringApplication.run(TaskboardWorkerApplication.class, args);
+    }
+}

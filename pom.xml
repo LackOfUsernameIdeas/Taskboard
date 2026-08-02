@@ -22,5 +22,6 @@
 	<modules>
 		<module>taskboard-core</module>
 		<module>taskboard-api</module>
+		<module>taskboard-worker</module>
 	</modules>
 </project>

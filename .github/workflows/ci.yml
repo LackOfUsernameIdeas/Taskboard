@@ -30,4 +30,4 @@ jobs:
         run: ./mvnw package -DskipTests
 
       - name: Build Docker image
-        run: docker build -t taskboard-app .
+        run: docker build -f taskboard-api/Dockerfile -t taskboard-app .

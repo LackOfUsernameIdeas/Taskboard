@@ -12,6 +12,7 @@ public class TaskResponse {
     private final String description;
     private final TaskStatus status;
     private final LocalDate dueDate;
+    private final String owner;
 
     public TaskResponse(Task task) {
         this.id = task.getId();
@@ -19,6 +20,7 @@ public class TaskResponse {
         this.description = task.getDescription();
         this.status = task.getStatus();
         this.dueDate = task.getDueDate();
+        this.owner = task.getOwner() != null ? task.getOwner().getUsername() : null;
     }
 
     public Long getId() {
@@ -39,5 +41,9 @@ public class TaskResponse {
 
     public LocalDate getDueDate() {
         return dueDate;
+    }
+
+    public String getOwner() {
+        return owner;
     }
 }

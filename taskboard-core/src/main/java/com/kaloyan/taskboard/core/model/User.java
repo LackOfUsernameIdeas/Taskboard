@@ -21,7 +21,6 @@ public class User {
     @Column(nullable = false, unique = true)
     private String username;
 
-    // BCrypt hash, never plaintext
     @Column(nullable = false)
     private String password;
 

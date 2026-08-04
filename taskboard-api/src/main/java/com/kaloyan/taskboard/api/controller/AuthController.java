@@ -52,6 +52,7 @@ public class AuthController {
         User user = new User();
         user.setUsername(request.getUsername());
         user.setPassword(passwordEncoder.encode(request.getPassword()));
+        // Always USER; only AdminSeeder can create an ADMIN account
         user.setRole(Role.USER);
 
         userRepository.save(user);

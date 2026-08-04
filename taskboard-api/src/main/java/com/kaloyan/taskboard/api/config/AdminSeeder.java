@@ -11,13 +11,12 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 /**
- * Provisions the initial ADMIN account on application startup.
+ * Creates the initial ADMIN account on application startup.
  *
  * This is the only place an ADMIN user gets created. Registration
- * (AuthController#register) always creates a plain USER - there is no
- * self-service or first-user-wins path to admin rights.
+ * (AuthController#register) always creates a plain USER.
  *
- * If an ADMIN already exists, this does nothing. Otherwise it creates one
+ * If an ADMIN already exists, this does nothing. Otherwise, it creates one
  * from app.admin.username / app.admin.password (backed by the
  * ADMIN_USERNAME / ADMIN_PASSWORD env vars). If a non-admin account already
  * has that username, it is promoted instead of creating a duplicate.

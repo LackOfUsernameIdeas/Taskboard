@@ -121,11 +121,15 @@ This is the complete set of endpoints exposed by the API:
 
 ### `GET /tasks`
 
+**Responses**
+
 | Status | When                                              |
 |---|---------------------------------------------------|
 | `200` | Always. Body: array of task objects (see below) |
 
 ### `GET /tasks/{id}`
+
+**Responses**
 
 | Status | When |
 |---|---|
@@ -143,7 +147,7 @@ This is the complete set of endpoints exposed by the API:
 | `status` | string | required, one of `TODO`, `IN_PROGRESS`, `DONE` |
 | `dueDate` | string (`YYYY-MM-DD`) | optional |
 
-The task's owner is always set to the authenticated caller - there's no way to create a task on someone else's behalf.
+**Responses**
 
 | Status | When                                              |
 |---|---------------------------------------------------|
@@ -154,6 +158,8 @@ The task's owner is always set to the authenticated caller - there's no way to c
 
 Same request body and validation as `POST /tasks`. Full replace, not a partial update - any field you omit is overwritten with `null`/empty on the existing task.
 
+**Responses**
+
 | Status | When |
 |---|---|
 | `200` | Updated. Body: task object |
@@ -163,6 +169,8 @@ Same request body and validation as `POST /tasks`. Full replace, not a partial u
 ### `DELETE /tasks/{id}`
 
 Admin-only, enforced before the request reaches the controller.
+
+**Responses**
 
 | Status | When |
 |---|---|

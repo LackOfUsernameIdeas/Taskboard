@@ -1,6 +1,10 @@
 # Taskboard
 
-> **Multi-module task-management API**, split into a shared domain library, a REST layer, and a standalone **background worker** - combining stateless **JWT authentication** with **role-based access control** (`USER` or `ADMIN`). The worker runs independently on a 60-second schedule, polling the same **PostgreSQL** database to detect and log **overdue tasks**.
+> **Multi-module task-management API**, split into a shared domain library, a REST layer, and a standalone **background worker** - combining stateless **JWT authentication** with **role-based access control** (`USER` or `ADMIN`). The worker runs independently on a 60-second schedule, polling the same **PostgreSQL** database to detect and log **overdue tasks**
+
+---
+
+> **Note:** **This project was built as a learning exercise** - providing hands-on experience in transforming Java fundamentals into a deeper understanding of how a real Spring Boot backend is structured, secured, tested, containerized, and deployed
 
 ---
 

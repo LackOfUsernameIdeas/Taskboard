@@ -1,6 +1,6 @@
 # Taskboard
 
-> **Multi-module task-management API** built with **Java** and **Spring Boot**, combining **JWT authentication** and **role-based access control** (`USER` / `ADMIN`) with per-owner task scoping. A separate **background worker** process shares the same database and continuously scans for **overdue tasks**, logging them as they're found
+> **Multi-module task-management API**, split into a shared domain library, a REST layer, and a standalone **background worker** - combining stateless **JWT authentication** with **role-based access control** (`USER` or `ADMIN`). The worker runs independently on a 60-second schedule, polling the same **PostgreSQL** database to detect and log **overdue tasks**.
 
 ---
 
@@ -147,13 +147,9 @@ Tests run against an in-memory H2 database (`taskboard-api/src/test/resources/ap
 
 ## Security
 
-This project has had a security pass beyond the bare CRUD implementation; the current state is:
-
+- **Role-based access control** (`USER` or `ADMIN`) - regular users can only view and edit their own tasks; admins can view, edit, and delete any task. Delete operations are available only to admins, while non-admins are rejected before the request reaches the controller.
 - **Password storage** - passwords are hashed with `BCryptPasswordEncoder`, never stored or logged in plaintext.
-- **Stateless JWT auth** - `SecurityConfig` disables sessions (`SessionCreationPolicy.STATELESS`) and CSRF (not needed for a stateless, token-based API). Every request except `/auth/**` and `/h2-console/**` must carry a valid `Bearer` token, checked by a custom `JwtAuthenticationFilter` ahead of Spring's own authentication filter.
-- **Signed, expiring tokens** - tokens are signed with an HMAC key (`app.jwt.secret`) and carry the username and role as claims, with a configurable expiration (`app.jwt.expiration-ms`, default 1 hour). The signing key comes from the `JWT_SECRET` environment variable in real deployments.
-- **Ownership enforcement in the service layer** - `TaskService` scopes `findAll`/`findById`/`update` to the requesting user's own tasks unless they're an admin, so a non-admin can't read or edit another user's tasks by guessing an id.
-- **Method-level restriction on delete** - `SecurityConfig` restricts `DELETE /tasks/**` to `hasRole("ADMIN")` at the filter-chain level, so it's rejected before the request even reaches the controller.
+- **Stateless JWT auth** - every request except `/auth/**` requires a valid `Bearer` token, verified by a custom filter before Spring's own authentication runs. Tokens are signed with an HMAC key (`JWT_SECRET`) and expire after a configurable duration (default 1 hour).
 
 ---
 

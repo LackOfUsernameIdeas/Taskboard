@@ -1,6 +1,6 @@
 # Taskboard
 
-> **Multi-module task-management API** built with **Java** and **Spring Boot**, combining **JWT authentication** and **role-based access control** (`USER` / `ADMIN`) with per-owner task scoping. A separate **background worker** process shares the same database and continuously scans for **overdue tasks**, logging them as they're found
+> **Multi-module task-management API**, split into a shared domain library, a REST layer, and a standalone **background worker** - combining stateless **JWT authentication** with **role-based access control** (`USER` or `ADMIN`). The worker runs independently on a 60-second schedule, polling the same **PostgreSQL** database to detect and log **overdue tasks**.
 
 ---
 

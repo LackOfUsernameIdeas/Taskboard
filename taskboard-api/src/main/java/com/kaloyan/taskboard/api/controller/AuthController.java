@@ -52,8 +52,6 @@ public class AuthController {
         User user = new User();
         user.setUsername(request.getUsername());
         user.setPassword(passwordEncoder.encode(request.getPassword()));
-        // First registered account could be promoted to ADMIN manually;
-        // everyone else registers as a plain USER by default.
         user.setRole(Role.USER);
 
         userRepository.save(user);

@@ -1,5 +1,6 @@
 package com.kaloyan.taskboard.core.repository;
 
+import com.kaloyan.taskboard.core.model.Role;
 import com.kaloyan.taskboard.core.model.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 
@@ -10,4 +11,6 @@ public interface UserRepository extends JpaRepository<User, Long> {
     Optional<User> findByUsername(String username);
 
     boolean existsByUsername(String username);
+
+    boolean existsByRole(Role role);
 }

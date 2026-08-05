@@ -6,10 +6,18 @@ on:
   pull_request:
     branches: [ main ]
 
-jobs:
-  build-and-test:
-    runs-on: ubuntu-latest
+permissions:
+  contents: read
 
+concurrency:
+  group: ci-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  test:
+    name: Unit tests
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -35,17 +43,39 @@ jobs:
           path: '**/target/surefire-reports/*'
           retention-days: 7
 
+  build:
+    name: Build, scan and smoke test
+    needs: test
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Make mvnw executable
+        run: chmod +x mvnw
+
+      - name: Set up JDK
+        uses: actions/setup-java@v4
+        with:
+          java-version: '26'
+          distribution: 'temurin'
+          cache: 'maven'
+
       - name: Build JARs (core, api, worker)
         run: ./mvnw -B package -DskipTests
 
-      - name: Build API Docker image
-        run: docker build -f taskboard-api/Dockerfile -t taskboard-api .
+      - name: Upload JAR artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: jars
+          path: |
+            taskboard-api/target/taskboard-api-*.jar
+            taskboard-worker/target/taskboard-worker-*.jar
+          retention-days: 7
 
-      - name: Build Worker Docker image
-        run: docker build -f taskboard-worker/Dockerfile -t taskboard-worker .
-
-      - name: Validate docker-compose config
-        run: docker compose config
+      - name: Build images via docker compose
+        run: docker compose build
         env:
           DB_NAME: taskdb
           DB_USER: taskuser
@@ -53,3 +83,57 @@ jobs:
           JWT_SECRET: ci-only-secret-key-not-for-production-use-32b
           ADMIN_USERNAME: ci-admin
           ADMIN_PASSWORD: ci-only-admin-password-not-for-production
+
+      - name: Scan API image for vulnerabilities
+        uses: aquasecurity/trivy-action@0.28.0
+        with:
+          image-ref: taskboard-app
+          format: table
+          severity: CRITICAL,HIGH
+          ignore-unfixed: true
+          exit-code: '1'
+
+      - name: Scan worker image for vulnerabilities
+        uses: aquasecurity/trivy-action@0.28.0
+        with:
+          image-ref: taskboard-worker
+          format: table
+          severity: CRITICAL,HIGH
+          ignore-unfixed: true
+          exit-code: '1'
+
+      - name: Smoke test the docker-compose stack
+        env:
+          DB_NAME: taskdb
+          DB_USER: ci_user
+          DB_PASSWORD: ci_password
+          JWT_SECRET: ci-only-secret-key-not-for-production-use-32b
+          ADMIN_USERNAME: ci-admin
+          ADMIN_PASSWORD: ci-only-admin-password-not-for-production
+        run: |
+          docker compose up -d
+          echo "Waiting for the API to accept requests..."
+          ready=false
+          for i in $(seq 1 30); do
+            code=$(curl -s -o /dev/null -w '%{http_code}' -X POST http://localhost:8080/auth/register               -H 'Content-Type: application/json' -d '{}') || code=000
+            if [ "$code" = "400" ]; then
+              echo "API responded with expected validation error (400) - app booted and DB is reachable."
+              ready=true
+              break
+            fi
+            sleep 2
+          done
+          docker compose ps
+          if [ "$ready" != "true" ]; then
+            echo "API never became ready - dumping logs:"
+            docker compose logs
+            exit 1
+          fi
+
+      - name: Dump container logs
+        if: always()
+        run: docker compose logs
+
+      - name: Tear down docker-compose stack
+        if: always()
+        run: docker compose down -v

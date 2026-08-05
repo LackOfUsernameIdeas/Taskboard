@@ -22,12 +22,34 @@ jobs:
         with:
           java-version: '26'
           distribution: 'temurin'
+          cache: 'maven'
 
-      - name: Run tests
-        run: ./mvnw test
+      - name: Run tests (core, api, worker)
+        run: ./mvnw -B test
 
-      - name: Build JAR
-        run: ./mvnw package -DskipTests
+      - name: Publish surefire test reports
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: surefire-reports
+          path: '**/target/surefire-reports/*'
+          retention-days: 7
 
-      - name: Build Docker image
-        run: docker build -f taskboard-api/Dockerfile -t taskboard-app .
+      - name: Build JARs (core, api, worker)
+        run: ./mvnw -B package -DskipTests
+
+      - name: Build API Docker image
+        run: docker build -f taskboard-api/Dockerfile -t taskboard-api .
+
+      - name: Build Worker Docker image
+        run: docker build -f taskboard-worker/Dockerfile -t taskboard-worker .
+
+      - name: Validate docker-compose config
+        run: docker compose config
+        env:
+          DB_NAME: taskdb
+          DB_USER: taskuser
+          DB_PASSWORD: taskpass
+          JWT_SECRET: ci-only-secret-key-not-for-production-use-32b
+          ADMIN_USERNAME: ci-admin
+          ADMIN_PASSWORD: ci-only-admin-password-not-for-production

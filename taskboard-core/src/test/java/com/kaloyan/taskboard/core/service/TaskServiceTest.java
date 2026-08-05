@@ -62,6 +62,15 @@ class TaskServiceTest {
                 .isInstanceOf(TaskNotFoundException.class).hasMessage("Task not found with id: 7");
     }
 
+    @Test void rejectsMissingTaskForAdmin() {
+        when(taskRepository.findById(7L)).thenReturn(Optional.empty());
+
+        assertThatThrownBy(() -> taskService.getTaskById(7L, "admin", true))
+                .isInstanceOf(TaskNotFoundException.class).hasMessage("Task not found with id: 7");
+        verify(taskRepository).findById(7L);
+        verify(taskRepository, never()).findByIdAndOwnerUsername(anyLong(), anyString());
+    }
+
     @Test void createsTaskWithAuthenticatedUserAsOwner() {
         User alice = user("alice");
         Task task = task(null, "new");
@@ -93,6 +102,20 @@ class TaskServiceTest {
         assertThat(stored.getDescription()).isEqualTo("updated");
         assertThat(stored.getStatus()).isEqualTo(TaskStatus.DONE);
         assertThat(stored.getDueDate()).isEqualTo(LocalDate.of(2026, 8, 1));
+    }
+
+    @Test void allowsAdminToUpdateTaskOwnedByAnotherUser() {
+        Task stored = task(4L, "old");
+        Task update = task(null, "new");
+        when(taskRepository.findById(4L)).thenReturn(Optional.of(stored));
+        when(taskRepository.save(stored)).thenReturn(stored);
+
+        taskService.updateTask(4L, update, "admin", true);
+
+        assertThat(stored.getTitle()).isEqualTo("new");
+        verify(taskRepository).findById(4L);
+        verify(taskRepository, never()).findByIdAndOwnerUsername(anyLong(), anyString());
+        verify(taskRepository).save(stored);
     }
 
     @Test void deletesExistingTaskAndRejectsMissingTask() {

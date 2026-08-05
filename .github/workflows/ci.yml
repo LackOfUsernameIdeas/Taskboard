@@ -85,7 +85,7 @@ jobs:
           ADMIN_PASSWORD: ci-only-admin-password-not-for-production
 
       - name: Scan API image for vulnerabilities
-        uses: aquasecurity/trivy-action@0.28.0
+        uses: aquasecurity/trivy-action@0.35.0
         with:
           image-ref: taskboard-app
           format: table
@@ -94,7 +94,7 @@ jobs:
           exit-code: '1'
 
       - name: Scan worker image for vulnerabilities
-        uses: aquasecurity/trivy-action@0.28.0
+        uses: aquasecurity/trivy-action@0.35.0
         with:
           image-ref: taskboard-worker
           format: table

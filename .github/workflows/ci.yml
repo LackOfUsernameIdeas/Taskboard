@@ -32,8 +32,11 @@ jobs:
           distribution: 'temurin'
           cache: 'maven'
 
+      - name: Clear stale local-repo artifacts for our own modules
+        run: rm -rf ~/.m2/repository/com/kaloyan
+
       - name: Run tests (core, api, worker)
-        run: ./mvnw -B test
+        run: ./mvnw -B clean test
 
       - name: Publish surefire test reports
         if: always()
@@ -52,9 +55,6 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: DEBUG - show pom content
-        run: cat taskboard-core/pom.xml
-
       - name: Make mvnw executable
         run: chmod +x mvnw
 
@@ -65,8 +65,11 @@ jobs:
           distribution: 'temurin'
           cache: 'maven'
 
+      - name: Clear stale local-repo artifacts for our own modules
+        run: rm -rf ~/.m2/repository/com/kaloyan
+
       - name: Build JARs (core, api, worker)
-        run: ./mvnw -B package -DskipTests
+        run: ./mvnw -B clean package -DskipTests
 
       - name: Upload JAR artifacts
         uses: actions/upload-artifact@v4

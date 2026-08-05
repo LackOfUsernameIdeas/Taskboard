@@ -268,6 +268,11 @@ ADMIN_PASSWORD=replace_with_a_strong_password
 
 ## Local Development
 
+### Prerequisites
+
+- JDK 26 (`java -version` and `javac -version` should both report version 26)
+- Docker Desktop running
+
 ### 1. Configure environment variables
 
 **Linux / macOS**
@@ -284,35 +289,66 @@ copy .env.example .env
 
 Fill in `.env` as described in [Gitignored Configuration Files](#gitignored-configuration-files).
 
-### 2. Start everything with Docker Compose
+### 2. Build the applications and run the unit tests
 
-```bash
+From the repository root, create the executable API and worker JARs. This also runs the full test suite:
+
+```cmd
+.\mvnw.cmd clean package
+```
+
+Docker copies the generated JARs from each module's `target` directory, so run this command before the first Docker build and whenever you make changes to the Java code.
+
+### 3. Start everything with Docker Compose
+
+```cmd
 docker compose up --build
 ```
 
-This builds and starts three containers: `postgres`, `app` (`taskboard-api`, exposed on `http://localhost:8080`), and `worker` (`taskboard-worker`, no exposed port - it only talks to Postgres). 
+This builds and starts three containers: `postgres`, `app` (`taskboard-api`, exposed on `http://localhost:8080`), and `worker` (`taskboard-worker`, no exposed port - it only talks to Postgres).
 
 Re-run with `--build` any time you change source code. Without it, Compose reuses the last-built image.
 
 Watch the `app` container's logs for `Seeded initial admin account '<username>'` to confirm the admin account from `.env` was created. On every later startup where an admin already exists, `AdminSeeder` does nothing.
 
-### 3. Verify it's running
+### 4. Verify the running application
 
-```bash
-# Log in as the admin account from .env
-curl -X POST localhost:8080/auth/login \
-  -H "Content-Type: application/json" \
-  -d "{\"username\":\"$ADMIN_USERNAME\",\"password\":\"$ADMIN_PASSWORD\"}"
-# -> {"token": "..."}
+Keep the Compose terminal open. In a second **Command Prompt** window in the repository root, load the local configuration, log in with the seeded admin account, and call the protected task endpoint:
 
-# Use that token to list tasks (empty array on a fresh database)
-curl localhost:8080/tasks -H "Authorization: Bearer <token from above>"
+```cmd
+# Load values from .env into this Command Prompt session.
+for /f "usebackq tokens=1,* delims==" %A in (".env") do set "%A=%B"
+
+# Log in and store the JWT for the following protected request.
+for /f "tokens=2 delims=:,}" %A in ('curl.exe -s -X POST http://localhost:8080/auth/login -H "Content-Type: application/json" -d "{\"username\":\"%ADMIN_USERNAME%\",\"password\":\"%ADMIN_PASSWORD%\"}"') do set TOKEN=%~A
+
+# Returns the current task list and HTTP 200
+curl.exe -i http://localhost:8080/tasks -H "Authorization: Bearer %TOKEN%"
 ```
 
-### 4. Run tests (optional)
+The worker begins before the API may finish creating its tables, so its first check can log a missing-table error. It retries every 60 seconds. Confirm its next run is healthy with:
 
-```bash
-./mvnw test
+```cmd
+docker compose logs worker --tail=50
 ```
 
-Tests run against an in-memory H2 database (`taskboard-api/src/test/resources/application.properties`), so no local Postgres is needed for this step.
+### 5. Reset the local database (only if needed)
+
+If your entity schema changes during development and the local database no longer matches it, stop the stack and remove the local Docker volume:
+
+```cmd
+docker compose down -v
+docker compose up --build
+```
+
+`docker compose down -v` permanently deletes the local PostgreSQL data, including users and tasks. Log in again after a reset because all accounts are recreated.
+
+Tests use an in-memory H2 database (`taskboard-api/src/test/resources/application.properties`) and do not require Docker or PostgreSQL.
+
+### 6. Stop the application
+
+```cmd
+docker compose down
+```
+
+This stops the containers but preserves the local database.

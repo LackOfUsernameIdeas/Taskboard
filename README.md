@@ -61,13 +61,16 @@ taskboard-parent/
 ## Tech Stack
 
 **API (`taskboard-api`)**  
-Spring Boot (Web MVC, Spring Security, Spring Data JPA), PostgreSQL, JWT, BCrypt, Bean Validation
+Spring Boot (Web MVC, Spring Security, Spring Data JPA), PostgreSQL, JJWT, BCrypt, Bean Validation
 
 **Worker (`taskboard-worker`)**  
 Spring Boot (Spring Data JPA, Spring Scheduling)
 
+**Testing**  
+JUnit 5, Mockito, AssertJ, Spring Security Test, H2 (in-memory database, tests only)
+
 **Services & Tooling**  
-Maven multi-module build, Docker, GitHub Actions, H2 (only for testing)
+Maven multi-module build, Docker, GitHub Actions
 
 ---
 
@@ -75,7 +78,7 @@ Maven multi-module build, Docker, GitHub Actions, H2 (only for testing)
 
 Base URL (local): `http://localhost:8080`
 
-All endpoints except `/auth/register` and `/auth/login` require an `Authorization: Bearer <token>` header. 
+All endpoints except `/auth/register` and `/auth/login` require an `Authorization: Bearer <token>` header.
 
 This is the complete set of endpoints exposed by the API:
 
@@ -232,7 +235,7 @@ curl -i -X DELETE localhost:8080/tasks/1 -H "Authorization: Bearer $ADMIN_TOKEN"
 
 ## Security
 
-- **Role-based access control** (`USER` or `ADMIN`) - regular users can only view and edit their own tasks; admins can view, edit, and delete any task. Delete operations are available only to admins, while non-admins are rejected before the request reaches the controller.
+- **Role-based access control** (`USER` or `ADMIN`) - regular users can only view and edit their own tasks; admins can view, edit, and delete any task.
 - **Password storage** - passwords are hashed with `BCryptPasswordEncoder`, never stored or logged in plaintext.
 - **Stateless JWT auth** - every request except `/auth/**` requires a valid `Bearer` token, verified by a custom filter before Spring's own authentication runs. Tokens are signed with an HMAC key (`JWT_SECRET`) and expire after a configurable duration (default 1 hour).
 
@@ -262,7 +265,7 @@ ADMIN_PASSWORD=replace_with_a_strong_password
 | `DB_NAME` | `postgres`, `app`, `worker` | Database name, shared by all three containers so `app` and `worker` connect to the same schema `postgres` creates                                                                                               |
 | `DB_USER` / `DB_PASSWORD` | `postgres`, `app`, `worker` | Postgres credentials                                                                                                                                                                                            |
 | `JWT_SECRET` | `app` only | HMAC signing key for every issued JWT (maps to `app.jwt.secret` in `taskboard-api`'s `application.properties`). Must be a long, random value (32+ bytes) - a short or predictable secret weakens token security |
-| `ADMIN_USERNAME` / `ADMIN_PASSWORD` | `app` only | Read once by `AdminSeeder` on startup to create an initial `ADMIN` account. `/auth/register` can never produce an admin account by itself - this is the only path to one                                        |
+| `ADMIN_USERNAME` / `ADMIN_PASSWORD` | `app` only | Read once by `AdminSeeder` on startup to create an initial `ADMIN` account |
 
 ---
 
@@ -297,7 +300,9 @@ From the repository root, create the executable API and worker JARs. This also r
 .\mvnw.cmd clean package
 ```
 
-Docker copies the generated JARs from each module's `target` directory, so run this command before the first Docker build and whenever you make changes to the Java code.
+Docker copies the generated JARs from each module's `target` directory rather than compiling the source code itself. 
+
+**Re-run this command whenever you change Java code**, before rebuilding the Docker images in the next step.
 
 ### 3. Start everything with Docker Compose
 

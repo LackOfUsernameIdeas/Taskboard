@@ -60,11 +60,14 @@ taskboard-parent/
 
 ## Tech Stack
 
+**Core (`taskboard-core`)**  
+Spring Data JPA, PostgreSQL
+
 **API (`taskboard-api`)**  
-Spring Boot (Web MVC, Spring Security, Spring Data JPA), PostgreSQL, JJWT, BCrypt, Bean Validation
+Spring Boot (Web MVC, Spring Security), JJWT, BCrypt, Bean Validation
 
 **Worker (`taskboard-worker`)**  
-Spring Boot (Spring Data JPA, Spring Scheduling)
+Spring Boot (Spring Scheduling)
 
 **Testing**  
 JUnit 5, Mockito, AssertJ, Spring Security Test, H2 (in-memory database, tests only)

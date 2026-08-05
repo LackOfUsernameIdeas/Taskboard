@@ -32,9 +32,6 @@ jobs:
           distribution: 'temurin'
           cache: 'maven'
 
-      - name: Clear stale local-repo artifacts for our own modules
-        run: rm -rf ~/.m2/repository/com/kaloyan
-
       - name: Run tests (core, api, worker)
         run: ./mvnw -B clean test
 
@@ -64,9 +61,6 @@ jobs:
           java-version: '26'
           distribution: 'temurin'
           cache: 'maven'
-
-      - name: Clear stale local-repo artifacts for our own modules
-        run: rm -rf ~/.m2/repository/com/kaloyan
 
       - name: Build JARs (core, api, worker)
         run: ./mvnw -B clean package -DskipTests

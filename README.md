@@ -73,7 +73,7 @@ Spring Boot (Spring Scheduling)
 JUnit 5, Mockito, AssertJ, Spring Security Test, H2 (in-memory database, tests only)
 
 **Services & Tooling**  
-Maven multi-module build, Docker, GitHub Actions
+Maven multi-module build, Docker, GitHub Actions, Trivy
 
 ---
 

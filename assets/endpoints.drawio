@@ -1,0 +1,136 @@
+<mxfile host="app.diagrams.net" agent="Claude">
+  <diagram id="taskboard-endpoints-table3" name="Endpoints Table">
+    <mxGraphModel dx="1770" dy="987" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1440" pageHeight="1007" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="c2" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#E07000;fontColor=#FFFFFF;align=center;verticalAlign=middle;spacing=6;fontSize=21;fontStyle=1;" value="Endpoint" vertex="1">
+          <mxGeometry height="55" width="190" as="geometry" />
+        </mxCell>
+        <mxCell id="c3" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#E07000;fontColor=#FFFFFF;align=center;verticalAlign=middle;spacing=6;fontSize=21;fontStyle=1;" value="Auth" vertex="1">
+          <mxGeometry height="55" width="130" x="190" as="geometry" />
+        </mxCell>
+        <mxCell id="c4" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#E07000;fontColor=#FFFFFF;align=center;verticalAlign=middle;spacing=6;fontSize=21;fontStyle=1;" value="Description" vertex="1">
+          <mxGeometry height="55" width="220" x="320" as="geometry" />
+        </mxCell>
+        <mxCell id="c5" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#E07000;fontColor=#FFFFFF;align=center;verticalAlign=middle;spacing=6;fontSize=21;fontStyle=1;" value="Request Body" vertex="1">
+          <mxGeometry height="55" width="380" x="540" as="geometry" />
+        </mxCell>
+        <mxCell id="c6" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#E07000;fontColor=#FFFFFF;align=center;verticalAlign=middle;spacing=6;fontSize=21;fontStyle=1;" value="Responses" vertex="1">
+          <mxGeometry height="55" width="480" x="920" as="geometry" />
+        </mxCell>
+        <mxCell id="c7" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFB366;opacity=50;fontStyle=1;align=center;verticalAlign=middle;spacing=6;fontColor=#000000;fontSize=19;" value="&lt;b&gt;POST&lt;/b&gt;&lt;br&gt;/auth/register" vertex="1">
+          <mxGeometry height="98" width="190" y="55" as="geometry" />
+        </mxCell>
+        <mxCell id="c8" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#d5e8d4;align=center;verticalAlign=middle;spacing=6;fontSize=17;fontStyle=1;" value="none" vertex="1">
+          <mxGeometry height="98" width="130" x="190" y="55" as="geometry" />
+        </mxCell>
+        <mxCell id="c9" parent="1" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=middle;spacing=10;fontColor=#000000;fontSize=17;lineSpacing=4;" value="Create a new USER account" vertex="1">
+          <mxGeometry height="98" width="220" x="320" y="55" as="geometry" />
+        </mxCell>
+        <mxCell id="c10" parent="1" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=middle;spacing=10;fontColor=#000000;fontSize=17;lineSpacing=4;" value="&lt;b&gt;username&lt;/b&gt;&amp;nbsp;– string, required, 3–50 chars&lt;br&gt;&lt;b&gt;password&lt;/b&gt; – string, required, 8+ chars" vertex="1">
+          <mxGeometry height="98" width="380" x="540" y="55" as="geometry" />
+        </mxCell>
+        <mxCell id="c11" parent="1" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=middle;spacing=10;fontColor=#000000;fontSize=17;lineSpacing=4;" value="&lt;b&gt;201&lt;/b&gt; Account created. Always creates a USER - this endpoint can never create an ADMIN&lt;br&gt;&lt;b&gt;400&lt;/b&gt; Validation failed&lt;br&gt;&lt;b&gt;409&lt;/b&gt; Body: &lt;span style=&quot;background-color: rgb(204, 204, 204);&quot;&gt;{&quot;error&quot;: &quot;Username already taken: &amp;lt;username&amp;gt;&quot;}&lt;/span&gt;" vertex="1">
+          <mxGeometry height="98" width="480" x="920" y="55" as="geometry" />
+        </mxCell>
+        <mxCell id="c12" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFB366;opacity=50;fontStyle=1;align=center;verticalAlign=middle;spacing=6;fontColor=#000000;fontSize=19;" value="&lt;b&gt;POST&lt;/b&gt;&lt;br&gt;/auth/login" vertex="1">
+          <mxGeometry height="98" width="190" y="153" as="geometry" />
+        </mxCell>
+        <mxCell id="c13" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#d5e8d4;align=center;verticalAlign=middle;spacing=6;fontSize=17;fontStyle=1;" value="none" vertex="1">
+          <mxGeometry height="98" width="130" x="190" y="153" as="geometry" />
+        </mxCell>
+        <mxCell id="c14" parent="1" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=middle;spacing=10;fontColor=#000000;fontSize=17;lineSpacing=4;" value="Exchange credentials for a JWT" vertex="1">
+          <mxGeometry height="98" width="220" x="320" y="153" as="geometry" />
+        </mxCell>
+        <mxCell id="c15" parent="1" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=middle;spacing=10;fontColor=#000000;fontSize=17;lineSpacing=4;" value="&lt;b&gt;username&lt;/b&gt;&amp;nbsp;– string, required&lt;br&gt;&lt;b&gt;password&lt;/b&gt; – string, required" vertex="1">
+          <mxGeometry height="98" width="380" x="540" y="153" as="geometry" />
+        </mxCell>
+        <mxCell id="c16" parent="1" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=middle;spacing=10;fontColor=#000000;fontSize=17;lineSpacing=4;" value="&lt;b&gt;200&lt;/b&gt;&amp;nbsp;Body: &lt;span style=&quot;background-color: rgb(204, 204, 204);&quot;&gt;{token: &amp;lt;jwt&amp;gt;}&lt;/span&gt;&lt;br&gt;&lt;b&gt;400&lt;/b&gt; Missing username or password&lt;br&gt;&lt;b&gt;401&lt;/b&gt; &amp;nbsp;Body: &lt;span style=&quot;background-color: rgb(204, 204, 204);&quot;&gt;{&quot;error&quot;: &quot;Invalid username or password&quot;}&lt;/span&gt;" vertex="1">
+          <mxGeometry height="98" width="480" x="920" y="153" as="geometry" />
+        </mxCell>
+        <mxCell id="c17" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFB366;opacity=50;fontStyle=1;align=center;verticalAlign=middle;spacing=6;fontColor=#000000;fontSize=19;" value="&lt;b&gt;GET&lt;/b&gt;&lt;br&gt;/tasks" vertex="1">
+          <mxGeometry height="67" width="190" y="251" as="geometry" />
+        </mxCell>
+        <mxCell id="c18" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFF2CC;align=center;verticalAlign=middle;spacing=6;fontSize=17;fontStyle=1;" value="any authenticated user" vertex="1">
+          <mxGeometry height="67" width="130" x="190" y="251" as="geometry" />
+        </mxCell>
+        <mxCell id="c19" parent="1" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=middle;spacing=10;fontColor=#000000;fontSize=17;lineSpacing=4;fillColor=default;" value="List your own tasks (or all tasks if admin)" vertex="1">
+          <mxGeometry height="67" width="220" x="320" y="251" as="geometry" />
+        </mxCell>
+        <mxCell id="c20" parent="1" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=middle;spacing=10;fontColor=#000000;fontSize=17;lineSpacing=4;fillColor=default;" value="–&lt;i&gt;&amp;nbsp;none&amp;nbsp;&lt;/i&gt;–" vertex="1">
+          <mxGeometry height="67" width="380" x="540" y="251" as="geometry" />
+        </mxCell>
+        <mxCell id="c21" parent="1" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=middle;spacing=10;fontColor=#000000;fontSize=17;lineSpacing=4;fillColor=#FFFDE4;" value="&lt;b&gt;200&lt;/b&gt; Always. Body: &lt;span style=&quot;background-color: rgb(204, 204, 204);&quot;&gt;array of Task objects&lt;/span&gt;" vertex="1">
+          <mxGeometry height="67" width="480" x="920" y="251" as="geometry" />
+        </mxCell>
+        <mxCell id="c22" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFB366;opacity=50;fontStyle=1;align=center;verticalAlign=middle;spacing=6;fontColor=#000000;fontSize=19;" value="&lt;b&gt;GET&lt;/b&gt;&lt;br&gt;/tasks/{id}" vertex="1">
+          <mxGeometry height="98" width="190" y="318" as="geometry" />
+        </mxCell>
+        <mxCell id="c23" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFF2CC;align=center;verticalAlign=middle;spacing=6;fontSize=17;fontStyle=1;" value="any authenticated user" vertex="1">
+          <mxGeometry height="98" width="130" x="190" y="318" as="geometry" />
+        </mxCell>
+        <mxCell id="c24" parent="1" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=middle;spacing=10;fontColor=#000000;fontSize=17;lineSpacing=4;fillColor=default;" value="Fetch one task you own (or any task, if admin)" vertex="1">
+          <mxGeometry height="98" width="220" x="320" y="318" as="geometry" />
+        </mxCell>
+        <mxCell id="c25" parent="1" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=middle;spacing=10;fontColor=#000000;fontSize=17;lineSpacing=4;fillColor=default;" value="–&lt;i&gt;&amp;nbsp;none&amp;nbsp;&lt;/i&gt;–" vertex="1">
+          <mxGeometry height="98" width="380" x="540" y="318" as="geometry" />
+        </mxCell>
+        <mxCell id="c26" parent="1" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=middle;spacing=10;fontColor=#000000;fontSize=17;lineSpacing=4;fillColor=#FFFDE4;" value="&lt;b&gt;200&lt;/b&gt;&amp;nbsp;Body: &lt;span style=&quot;background-color: rgb(204, 204, 204);&quot;&gt;Task object&lt;/span&gt;&lt;br&gt;&lt;b&gt;404&lt;/b&gt;&amp;nbsp;Task doesn&#39;t exist, or it exists but belongs to someone else and you&#39;re not an admin" vertex="1">
+          <mxGeometry height="98" width="480" x="920" y="318" as="geometry" />
+        </mxCell>
+        <mxCell id="c27" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFB366;opacity=50;fontStyle=1;align=center;verticalAlign=middle;spacing=6;fontColor=#000000;fontSize=19;" value="&lt;b&gt;POST&lt;/b&gt;&lt;br&gt;/tasks" vertex="1">
+          <mxGeometry height="122" width="190" y="416" as="geometry" />
+        </mxCell>
+        <mxCell id="c28" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFF2CC;align=center;verticalAlign=middle;spacing=6;fontSize=17;fontStyle=1;" value="any authenticated user" vertex="1">
+          <mxGeometry height="122" width="130" x="190" y="416" as="geometry" />
+        </mxCell>
+        <mxCell id="c29" parent="1" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=middle;spacing=10;fontColor=#000000;fontSize=17;lineSpacing=4;fillColor=default;" value="Create a task owned by the caller&amp;nbsp;(admins cannot assign tasks to other users)" vertex="1">
+          <mxGeometry height="122" width="220" x="320" y="416" as="geometry" />
+        </mxCell>
+        <mxCell id="c30" parent="1" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=middle;spacing=10;fontColor=#000000;fontSize=17;lineSpacing=4;fillColor=default;" value="&lt;b&gt;title&lt;/b&gt;&amp;nbsp;–&amp;nbsp;string, required, ≤100 chars&lt;br&gt;&lt;b&gt;description&lt;/b&gt;&amp;nbsp;– optional, ≤1000 chars&lt;br&gt;&lt;b&gt;status&lt;/b&gt;&amp;nbsp;–&amp;nbsp;TODO / IN_PROGRESS / DONE&lt;br&gt;&lt;b&gt;dueDate&lt;/b&gt;&amp;nbsp;–&amp;nbsp;YYYY-MM-DD, optional" vertex="1">
+          <mxGeometry height="122" width="380" x="540" y="416" as="geometry" />
+        </mxCell>
+        <mxCell id="c31" parent="1" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=middle;spacing=10;fontColor=#000000;fontSize=17;lineSpacing=4;fillColor=#FFFDE4;" value="&lt;b&gt;201&lt;/b&gt; Created. Body: &lt;span style=&quot;background-color: rgb(204, 204, 204);&quot;&gt;Task object&lt;/span&gt;&lt;br&gt;&lt;b&gt;400&lt;/b&gt;&amp;nbsp;Validation failed" vertex="1">
+          <mxGeometry height="122" width="480" x="920" y="416" as="geometry" />
+        </mxCell>
+        <mxCell id="c32" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFB366;opacity=50;fontStyle=1;align=center;verticalAlign=middle;spacing=6;fontColor=#000000;fontSize=19;" value="&lt;b&gt;PUT&lt;/b&gt;&lt;br&gt;/tasks/{id}" vertex="1">
+          <mxGeometry height="98" width="190" y="538" as="geometry" />
+        </mxCell>
+        <mxCell id="c33" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFF2CC;align=center;verticalAlign=middle;spacing=6;fontSize=17;fontStyle=1;" value="any authenticated user" vertex="1">
+          <mxGeometry height="98" width="130" x="190" y="538" as="geometry" />
+        </mxCell>
+        <mxCell id="c34" parent="1" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=middle;spacing=10;fontColor=#000000;fontSize=17;lineSpacing=4;fillColor=default;" value="Update a task you own (or any task, if admin)" vertex="1">
+          <mxGeometry height="98" width="220" x="320" y="538" as="geometry" />
+        </mxCell>
+        <mxCell id="c35" parent="1" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=middle;spacing=10;fontColor=#000000;fontSize=17;lineSpacing=4;fillColor=default;" value="Same body as &lt;b&gt;POST /tasks&lt;/b&gt;&lt;br&gt;&lt;b&gt;Full replace&lt;/b&gt;&amp;nbsp;–&amp;nbsp;omitted fields&lt;br&gt;become null / empty" vertex="1">
+          <mxGeometry height="98" width="380" x="540" y="538" as="geometry" />
+        </mxCell>
+        <mxCell id="c36" parent="1" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=middle;spacing=10;fontColor=#000000;fontSize=17;lineSpacing=4;fillColor=#FFFDE4;" value="&lt;b&gt;200&lt;/b&gt; Updated. Body: &lt;span style=&quot;background-color: rgb(204, 204, 204);&quot;&gt;Task object&lt;/span&gt;&lt;br&gt;&lt;b&gt;400&lt;/b&gt; Validation failed&lt;br&gt;&lt;b&gt;404&lt;/b&gt;&amp;nbsp;Task doesn&#39;t exist, or it exists but belongs to someone else and you&#39;re not an admin" vertex="1">
+          <mxGeometry height="98" width="480" x="920" y="538" as="geometry" />
+        </mxCell>
+        <mxCell id="c37" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFB366;opacity=50;fontStyle=1;align=center;verticalAlign=middle;spacing=6;fontColor=#000000;fontSize=19;" value="&lt;b&gt;DELETE&lt;/b&gt;&lt;br&gt;/tasks/{id}" vertex="1">
+          <mxGeometry height="98" width="190" y="636" as="geometry" />
+        </mxCell>
+        <mxCell id="c38" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f8cecc;align=center;verticalAlign=middle;spacing=6;fontSize=17;fontStyle=1;" value="ADMIN only" vertex="1">
+          <mxGeometry height="98" width="130" x="190" y="636" as="geometry" />
+        </mxCell>
+        <mxCell id="c39" parent="1" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=middle;spacing=10;fontColor=#000000;fontSize=17;lineSpacing=4;" value="Delete any task, regardless of owner" vertex="1">
+          <mxGeometry height="98" width="220" x="320" y="636" as="geometry" />
+        </mxCell>
+        <mxCell id="c40" parent="1" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=middle;spacing=10;fontColor=#000000;fontSize=17;lineSpacing=4;" value="–&lt;i&gt; none &lt;/i&gt;–" vertex="1">
+          <mxGeometry height="98" width="380" x="540" y="636" as="geometry" />
+        </mxCell>
+        <mxCell id="c41" parent="1" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=middle;spacing=10;fontColor=#000000;fontSize=17;lineSpacing=4;" value="&lt;b&gt;204&lt;/b&gt; Deleted. Empty body&lt;br&gt;&lt;b&gt;403&lt;/b&gt; Caller is authenticated but not an admin (empty body)&lt;br&gt;&lt;b&gt;404&lt;/b&gt; Task doesn&#39;t exist" vertex="1">
+          <mxGeometry height="98" width="480" x="920" y="636" as="geometry" />
+        </mxCell>
+        <mxCell id="c42" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#fff2cc;align=left;verticalAlign=middle;spacing=12;fontSize=19;" value="&lt;b&gt;Task object shape with example data&lt;/b&gt;&lt;br&gt;&lt;span style=&quot;font-weight: normal;&quot;&gt;Returned by:&lt;/span&gt;&lt;br&gt;&lt;b&gt;200&lt;/b&gt; GET /tasks · GET /tasks/{id}&lt;br&gt;&lt;b&gt;201&lt;/b&gt; POST /tasks&lt;br&gt;&lt;b&gt;200&lt;/b&gt; PUT /tasks/{id}" vertex="1">
+          <mxGeometry height="230" width="320" y="750" as="geometry" />
+        </mxCell>
+        <mxCell id="c43" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFDE4;align=left;verticalAlign=middle;spacing=14;fontSize=19;" value="&lt;span style=&quot;font-family: monospace;&quot;&gt;{&lt;br&gt;&amp;nbsp;&amp;nbsp;&quot;id&quot;: 1,&lt;br&gt;&amp;nbsp;&amp;nbsp;&quot;title&quot;: &quot;Write tests&quot;,&lt;br&gt;&amp;nbsp;&amp;nbsp;&quot;description&quot;: null,&lt;br&gt;&amp;nbsp;&amp;nbsp;&quot;status&quot;: &quot;TODO&quot;,&lt;br&gt;&amp;nbsp;&amp;nbsp;&quot;dueDate&quot;: &quot;2026-09-01&quot;,&lt;br&gt;&amp;nbsp;&amp;nbsp;&quot;owner&quot;: &quot;alice&quot;&lt;br&gt;}&lt;/span&gt;" vertex="1">
+          <mxGeometry height="230" width="1080" x="320" y="750" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

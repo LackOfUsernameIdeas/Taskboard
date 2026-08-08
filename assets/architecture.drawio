@@ -1,0 +1,73 @@
+<mxfile host="app.diagrams.net" agent="Claude">
+  <diagram id="taskboard-architecture" name="Architecture">
+    <mxGraphModel dx="1770" dy="987" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1440" pageHeight="1080" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="a101" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#E07000;fontColor=#FFFFFF;align=center;verticalAlign=middle;spacing=8;fontSize=33;fontStyle=1;opacity=100;strokeColor=#000000;" value="Taskboard – Module Architecture" vertex="1">
+          <mxGeometry height="70" width="1400" x="20" y="110" as="geometry" />
+        </mxCell>
+        <mxCell id="a105" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFDE4;fontColor=#000000;align=center;verticalAlign=middle;spacing=8;fontSize=24;fontStyle=1;opacity=100;strokeColor=#000000;" value="HTTP Client" vertex="1">
+          <mxGeometry height="70" width="320" x="560" y="220" as="geometry" />
+        </mxCell>
+        <mxCell id="a106" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=none;fontColor=#000000;align=center;verticalAlign=middle;spacing=8;fontSize=14;fontStyle=0;opacity=100;strokeColor=#8C8C8C;" value="" vertex="1">
+          <mxGeometry height="260" width="560" x="120" y="360" as="geometry" />
+        </mxCell>
+        <mxCell id="a107" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#E07000;fontColor=#FFFFFF;align=center;verticalAlign=middle;spacing=8;fontSize=24;fontStyle=1;opacity=100;strokeColor=#000000;" value="taskboard-api  ·  :8080" vertex="1">
+          <mxGeometry height="60" width="560" x="120" y="360" as="geometry" />
+        </mxCell>
+        <mxCell id="a108" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFB366;fontColor=#000000;align=center;verticalAlign=middle;spacing=8;fontSize=20;fontStyle=0;opacity=45;strokeColor=#000000;" value="&lt;div style=&quot;line-height: 160%;&quot;&gt;&lt;font style=&quot;font-size: 22px;&quot;&gt;This service exposes the REST API for registering users, logging in, and managing tasks. Every request is authenticated with JWT, and errors come back as clean, predictable JSON (Global Exception Handler)&lt;/font&gt;&lt;/div&gt;" vertex="1">
+          <mxGeometry height="200" width="560" x="120" y="420" as="geometry" />
+        </mxCell>
+        <mxCell id="a109" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=none;fontColor=#000000;align=center;verticalAlign=middle;spacing=8;fontSize=14;fontStyle=0;opacity=100;strokeColor=#8C8C8C;" value="" vertex="1">
+          <mxGeometry height="260" width="560" x="760" y="360" as="geometry" />
+        </mxCell>
+        <mxCell id="a110" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#E07000;fontColor=#FFFFFF;align=center;verticalAlign=middle;spacing=8;fontSize=24;fontStyle=1;opacity=100;strokeColor=#000000;" value="taskboard-worker  ·  no port" vertex="1">
+          <mxGeometry height="60" width="560" x="760" y="360" as="geometry" />
+        </mxCell>
+        <mxCell id="a111" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFB366;fontColor=#000000;align=center;verticalAlign=middle;spacing=8;fontSize=20;fontStyle=0;opacity=45;strokeColor=#000000;" value="&lt;div style=&quot;line-height: 160%;&quot;&gt;&lt;font style=&quot;font-size: 22px;&quot;&gt;This service runs quietly in the background. Every 60 seconds, it checks the database for tasks that are overdue and logs them – it never modifies any data&lt;/font&gt;&lt;/div&gt;" vertex="1">
+          <mxGeometry height="200" width="560" x="760" y="420" as="geometry" />
+        </mxCell>
+        <mxCell id="a112" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#E07000;fontColor=#FFFFFF;align=center;verticalAlign=middle;spacing=8;fontSize=24;fontStyle=1;opacity=100;strokeColor=#000000;" value="taskboard-core" vertex="1">
+          <mxGeometry height="54" width="1200" x="120" y="750" as="geometry" />
+        </mxCell>
+        <mxCell id="a113" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFF2CC;fontColor=#000000;align=center;verticalAlign=middle;spacing=8;fontSize=18;fontStyle=0;opacity=100;strokeColor=#000000;" value="&lt;font style=&quot;font-size: 22px;&quot;&gt;The shared library both other modules depend on – it defines the models, repositories, and business logic they use to talk to the same database&lt;/font&gt;" vertex="1">
+          <mxGeometry height="86" width="1200" x="120" y="804" as="geometry" />
+        </mxCell>
+        <mxCell id="a114" parent="1" style="shape=cylinder3;whiteSpace=wrap;html=1;fillColor=#FFF2CC;fontColor=#000000;align=center;verticalAlign=middle;fontSize=24;fontStyle=1;boundedLbl=1;backgroundOutline=1;size=15;strokeColor=#000000;" value="PostgreSQL shared schema" vertex="1">
+          <mxGeometry height="120" width="460" x="490" y="960" as="geometry" />
+        </mxCell>
+        <mxCell id="a115" edge="1" parent="1" source="a105" style="html=1;endArrow=block;elbow=vertical;strokeColor=#000000;strokeWidth=2;rounded=0;fontSize=14;fontStyle=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="a107" value="">
+          <mxGeometry relative="1" x="0.0053" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="a116" edge="1" parent="1" source="a108" style="html=1;endArrow=block;elbow=vertical;strokeColor=#000000;strokeWidth=2;rounded=0;fontSize=14;fontStyle=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="a112" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="a117" edge="1" parent="1" source="a111" style="html=1;endArrow=block;elbow=vertical;strokeColor=#000000;strokeWidth=2;rounded=0;fontSize=14;fontStyle=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="a112" value="">
+          <mxGeometry relative="1" x="-0.0003" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="a118" edge="1" parent="1" source="a113" style="html=1;endArrow=block;elbow=vertical;strokeColor=#000000;strokeWidth=2;rounded=0;fontSize=14;fontStyle=1;" target="a114" value="">
+          <mxGeometry relative="1" x="-0.0043" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Dqr__nWO1NBqZaSM6fD7-3" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="&lt;span style=&quot;font-size: 21px; font-weight: 700; white-space: nowrap; background-color: rgb(255, 255, 255);&quot;&gt;REST calls&lt;/span&gt;" vertex="1">
+          <mxGeometry height="32" width="120" x="450" y="308" as="geometry" />
+        </mxCell>
+        <mxCell id="Dqr__nWO1NBqZaSM6fD7-7" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="&lt;span style=&quot;font-weight: 700; white-space: nowrap; background-color: rgb(255, 255, 255);&quot;&gt;&lt;font style=&quot;font-size: 22px;&quot;&gt;uses&lt;/font&gt;&lt;/span&gt;" vertex="1">
+          <mxGeometry height="32" width="70" x="590" y="669" as="geometry" />
+        </mxCell>
+        <mxCell id="Dqr__nWO1NBqZaSM6fD7-8" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="&lt;span style=&quot;font-weight: 700; white-space: nowrap; background-color: rgb(255, 255, 255);&quot;&gt;&lt;font style=&quot;font-size: 22px;&quot;&gt;uses&lt;/font&gt;&lt;/span&gt;" vertex="1">
+          <mxGeometry height="32" width="70" x="780" y="669" as="geometry" />
+        </mxCell>
+        <mxCell id="Dqr__nWO1NBqZaSM6fD7-9" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="&lt;span style=&quot;font-size: 21px; font-weight: 700; white-space: nowrap; background-color: rgb(255, 255, 255);&quot;&gt;reads / writes&lt;/span&gt;" vertex="1">
+          <mxGeometry height="32" width="150" x="645" y="909" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
